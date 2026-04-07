@@ -18,8 +18,11 @@ jobs:
       # hasil 
       image_tag: ${{ steps.meta.outputs.image_tag  }}
     steps:
-      - uses: action/checkout@v4
-      - uses: actions/setup-go@v5    # untuk aplikasi golang, kita gunakan ini 
+      - name: Checkout Code 
+        uses: actions/checkout@v4
+
+      - name: install go     
+        uses: actions/setup-go@v5    # untuk aplikasi golang, kita gunakan ini 
         with:
           go-version: '1.22'
       - name: Build app
