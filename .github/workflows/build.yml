@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # hasil 
-      image_tag: ${{  }}
+      image_tag: ${{ steps.meta.outputs.image_tag  }}
     steps:
       - uses: action/checkout@v4
       - uses: actions/setup-go@v5    # untuk aplikasi golang, kita gunakan ini 
