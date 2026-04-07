@@ -1,5 +1,6 @@
 name: Build
-on:
+on:  
+  workflow_dispatch: 
   #indicate bisa kita called  
   workflow_call:
     inputs:          # inputnya adalah kita masukan jenis env  
