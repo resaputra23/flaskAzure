@@ -1,0 +1,33 @@
+name: Build
+on:
+  #indicate bisa kita called  
+  workflow_call:
+    inputs:          # inputnya adalah kita masukan jenis env  
+      environtments:
+        required: true
+        type: string
+    outputs:          # outputnya adalah image_tag  
+      image_tag:
+        description: "Docker image tag"
+        value: ${{ jobs.build.outputs.image_tag }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      # hasil 
+      image_tag: ${{  }}
+    steps:
+      - uses: action/checkout@v4
+      - uses: actions/setup-go@v5    # untuk aplikasi golang, kita gunakan ini 
+        with:
+          go-version: '1.22'
+      - name: Build app
+        run: go build -o app/main app/main.go    #location dari file aplikasi
+      - name: Set Docker metadata
+        id: meta
+        run: echo "image_tag=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+      - name: Upload artifac
+        uses: actions/upload-artifact@v4      # kita gunakan action ini untuk upload file
+        with:
+          name: build-${{ inputs.environment }}
+          path: app/main
