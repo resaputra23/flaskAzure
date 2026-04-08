@@ -3,7 +3,7 @@ on:
   #pada saat
   workflow_dispatch: 
     inputs:
-      environment:
+      environtment:
         description: "Environment to deploy to"
         required: true
         type: choice
