@@ -25,7 +25,8 @@ jobs:
       contents: read
       deployments: write
     steps:
-      - uses: actions/download-artifact@v4
+      - name: Download artifac
+        uses: actions/download-artifact@v4
         with:
           name: build-${{ github.event.inputs.environment }}
       - name: Configure environment
