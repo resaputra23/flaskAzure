@@ -32,5 +32,5 @@ jobs:
       - name: Configure environment
         run: echo "Deploying to ${{ github.event.inputs.environment }}"
       - name: Deploy
-        run: ./app/main --env ${{ github.event.inputs.environment }}
+        run: ./app/main.go --env ${{ github.event.inputs.environment }}
   
