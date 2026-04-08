@@ -1,0 +1,35 @@
+name: Deploy
+on:
+  #pada saat
+  workflow_dispatch: 
+    inputs:
+      environment:
+        description: "Environment to deploy to"
+        required: true
+        type: choice
+        options: [dev, staging, prod]
+
+jobs:
+  #1. kita call workflow build.yml yg sudah ada 
+  deploy:
+    uses: ./.github/workflows/build.yml
+    with:
+      environtment: ${{ github.event.inputs.environment }}
+
+  #2. untuk release job, kita butuh 'deploy'    
+  release:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    permissions: 
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-${{ github.event.inputs.environment }}
+      - name: Configure environment
+        run: echo "Deploying to ${{ github.event.inputs.environment }}"
+      - name: Deploy
+        run: ./app/main --env ${{ github.event.inputs.environment }}
+  
