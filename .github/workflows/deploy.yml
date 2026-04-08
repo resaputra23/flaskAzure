@@ -14,7 +14,7 @@ jobs:
   deploy:
     uses: ./.github/workflows/build.yml
     with:
-      environtment: ${{ github.event.inputs.environtments }}
+      environtments: ${{ github.event.inputs.environtments }}
 
   #2. untuk release job, kita butuh 'deploy'    
   release:
